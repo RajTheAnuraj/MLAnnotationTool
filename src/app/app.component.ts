@@ -1,6 +1,7 @@
 import { Component, Pipe } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { Entity, TrainData, DisplayModel, SelectionCordinates } from './Models';
+import { HttpService } from './http.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,7 @@ export class AppComponent {
   displayModels: Array<DisplayModel> = new Array<DisplayModel>();
   currentSelection: SelectionCordinates = null;
 
-  constructor() {
+  constructor(private httpService: HttpService) {
     this.currentSelection = new SelectionCordinates();
   }
 
@@ -26,11 +27,6 @@ export class AppComponent {
       new Entity("TREATMENTSETTING", "entity TREATMENTSETTING", "Treatment Setting")
     ];
     this.trainData = new TrainData();
-    //this.trainData.trainText = "I am a disco dancer";
-    //this.trainData.AddAnnotation(0, 1, "CANCERSTAGE");
-    //this.trainData.AddAnnotation(7, 12, "BIOMARKER");
-    //this.trainData.AddAnnotation(13, 19, "TREATMENTSETTING");
-
     this.textToParse = this.trainData.trainText;
     this.RebindAnnotations();
   }
@@ -38,14 +34,27 @@ export class AppComponent {
   timeoutHandler = null;
 
   UpdateTrainingText() {
-    console.log("UpdateTrainingText");
     if (this.timeoutHandler != null)
       clearTimeout(this.timeoutHandler);
 
     this.timeoutHandler = setTimeout(() => {
+      this.trainData.ClearAnnotations();
       this.trainData.trainText = this.textToParse;
       this.RebindAnnotations();
     }, 1000)
+  }
+
+  postSubscription: Subscription = null;
+  AcceptAnnotation() {
+    let url:string ="https://postman-echo.com/post";
+    this.postSubscription = this.httpService.PostRequest(url, this.trainData).subscribe(
+      data => {  console.log(data); },
+      error => { },
+      () => {
+        if (this.postSubscription != null)
+          this.postSubscription.unsubscribe();
+      }
+    );
   }
 
 
@@ -88,7 +97,7 @@ export class AppComponent {
 
   public GetDisplayComponents(): Array<DisplayModel> {
     let retVal = new Array<DisplayModel>();
-    
+
     if (this.trainData == null)
       return retVal;
 

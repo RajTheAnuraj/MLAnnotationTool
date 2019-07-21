@@ -1,10 +1,86 @@
-.entity{
+#container {
+    min-height:100%;
+    position:relative;
+ }
+ #header {
+    padding:0px;
+ }
+ #body {
+    padding:10px;
+    padding-bottom:80px;   /* Height of the footer */
+    
+ }
+ #footer {
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:80px;   /* Height of the footer */
+ }
+ 
+ 
+
+
+header   {
+    background: #222;
+    color: #FFF;
+    padding: 5px 30px;
+}
+
+/* logo */
+#logo         {
+    display: inline-block;
+    color: #FFF;
+    text-decoration: none;
+    width: 49%;
+  }
+  #logo img    {
+    width: 50px;
+    border-radius: 3px;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+  #logo span   {
+    display: inline-block;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    margin-left:20px;
+  }
+
+  /* main navigation */
+nav     {
+    width: 50%;
+    display: inline-block;
+    text-align: right;
+  }
+  nav ul   {
+    list-style: none;
+    margin: 0;
+  }
+  nav ul li {
+    display: inline-block;
+  }
+  nav ul li a    {
+    color: #FFF;
+    text-decoration: none;
+    display: block;
+    padding: 10px 15px;
+    border-radius: 3px;
+    transition: 0.3s ease all;
+  }
+  nav ul li a:hover   {
+    background: #444;
+  }
+  
+  .entity{
     display: inline-block;
     padding: 10px;
     margin: 5px;
     border-radius: 3px;
     cursor: pointer;
 }
+
+.entity::-moz-selection { background-color:#dddd00}
+.entity::selection { background-color:#dddd00}
 
 .CANCERSTAGE{
     background-color:#dd0000;
@@ -56,8 +132,7 @@
     line-height: 25px;
 }
 
-.anotationBox::-moz-selection { background-color:#dddd00}
-.anotationBox::selection { background-color:#dddd00}
+
 
 .removeEntity{
     background-color: black;
@@ -71,4 +146,29 @@
     position: relative;
     left: -20px;
     top:-20px;
+}
+
+.btn{
+  display: inline-block;
+  
+  border: 3px solid #FFF;
+  border-radius: 3px;
+  padding: 15px 30px;
+  margin-right: 20px;
+  margin-bottom: 10px;
+  text-decoration: none;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.btn-primary{
+    color: #fff;
+    border-color: blueviolet;
+    background-color: blueviolet;
+}
+
+.btn-primary:hover{
+    color: #fff;
+    border-color: violet;
+    background-color: violet;
 }

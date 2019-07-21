@@ -57,6 +57,13 @@ export class TrainData {
                 c.entityName == annotation.entityName)
         );
     }
+
+    public ClearAnnotations(){
+        this.annotations = null;
+        this.annotations = new Array<Annotation>();
+    }
+
+    
 }
 
 export class SelectionCordinates{
